@@ -3,6 +3,7 @@ import Login from "./pages/Login";
 import Register from "./pages/Register";
 import PrivateRoute from "./components/PrivateRoute";
 import PermisAnimal from "./pages/PermisAnimal";
+import VieDemocratique from "./pages/Democratique";
 
 const App = () => {
   return (
@@ -24,6 +25,15 @@ const App = () => {
         element={
           <PrivateRoute>
             <PermisAnimal />
+          </PrivateRoute>
+        }
+      />
+
+      <Route
+        path="/vie-democratique"
+        element={
+          <PrivateRoute>
+            <VieDemocratique />
           </PrivateRoute>
         }
       />
