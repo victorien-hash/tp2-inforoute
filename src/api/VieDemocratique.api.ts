@@ -1,7 +1,11 @@
 import axios from "axios";
 
-const API_URL = "http://127.0.0.1:8000";
+const API_URL = "http://localhost:8000";
 
-export const getVieDemocratique = async () => {
-  return axios.get(`${API_URL}/app1/api/vie-democratique/`);
+export const getVieDemocratique = async (params?: any) => {
+  return axios.get(`${API_URL}/app1/api/vie-democratique/`, { params });
+};
+
+export const getVieDemocratiqueDetail = async (id: number) => {
+  return axios.get(`${API_URL}/app1/api/vie-democratique/${id}/`);
 };

@@ -1,159 +1,74 @@
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchVieDemocratique } from "../store/vieDemocratiqueSlice";
+import { useParams, useLocation, useNavigate } from "react-router-dom";
+import { fetchVieDemocratiqueDetail } from "../store/vieDemocratiqueSlice";
 import type { RootState, AppDispatch } from "../store/store";
 import "../styles/VieDemocratique.css";
 import "../styles/DataList.css";
 
 const VieDemocratique = () => {
   const dispatch = useDispatch<AppDispatch>();
+  const navigate = useNavigate();
+  const { id } = useParams<{ id: string }>();
+  const location = useLocation();
+  const stateItem = (location.state as any)?.item ?? null;
+
   const { data, loading, error } = useSelector((state: RootState) => state.vieDemocratique);
+  const [record, setRecord] = useState<any>(stateItem);
 
   useEffect(() => {
-    dispatch(fetchVieDemocratique());
-  }, [dispatch]);
+    if (stateItem) {
+      setRecord(stateItem);
+      return;
+    }
+    if (id) {
+      const parsed = parseInt(id);
+      if (!isNaN(parsed)) dispatch(fetchVieDemocratiqueDetail(parsed));
+    }
+  }, [dispatch, id, stateItem]);
 
-  const [searchTerm, setSearchTerm] = useState("");
-  const [filters, setFilters] = useState({ year: "", type: "" });
-  const [currentPage, setCurrentPage] = useState(1);
-  const itemsPerPage = 10;
+  useEffect(() => {
+    if (data && !stateItem) setRecord(data);
+  }, [data, stateItem]);
 
-  // Affichage du chargement avec un spinner
-  if (loading) {
-    return (
-      <div className="page-container">
-        <div className="loading">
-          <div className="loading-spinner"></div>
-          <p>Chargement des données...</p>
-        </div>
-      </div>
-    );
-  }
-
-  // Affichage de l'erreur
-  if (error) {
-    return (
-      <div className="page-container">
-        <div className="error">
-          <p>Oups ! Une erreur est survenue : {error}</p>
-        </div>
-      </div>
-    );
-  }
-
-  // prepare filtered + paginated data
-  const list = Array.isArray(data) ? data : [];
-
-  const filtered = list.filter((item: any) => {
-    const q = searchTerm.trim().toLowerCase();
-    const matchesSearch =
-      !q ||
-      (item.titre && item.titre.toLowerCase().includes(q)) ||
-      (item.description && item.description.toLowerCase().includes(q)) ||
-      (item.id && String(item.id).includes(q));
-
-    const matchesYear = !filters.year || (item.date && new Date(item.date).getFullYear() === parseInt(filters.year));
-    const matchesType = !filters.type || (item.type === filters.type || item.categorie === filters.type);
-
-    return matchesSearch && matchesYear && matchesType;
-  });
-
-  const totalPages = Math.max(1, Math.ceil(filtered.length / itemsPerPage));
-  const startIndex = (currentPage - 1) * itemsPerPage;
-  const pageItems = filtered.slice(startIndex, startIndex + itemsPerPage);
-
-  const uniqueYears = Array.from(new Set(list
-    .map((it: any) => (it.date ? new Date(it.date).getFullYear() : null))
-    .filter((y): y is number => y !== null)
-  )).sort((a: number, b: number) => b - a);
-  const uniqueTypes = Array.from(new Set(list.map((it: any) => it.type || it.categorie).filter((t): t is string => !!t)));
+  if (!id && !stateItem) return <p className="loading">Aucun ID spécifié dans l'URL.</p>;
+  if (loading && !record) return <p className="loading">Chargement...</p>;
+  if (error && !record) return <p className="error">Erreur : {error}</p>;
 
   return (
     <div className="data-list-container">
       <header className="list-header">
-        <h1>Vie Démocratique</h1>
-        <p className="total-items">Total : {filtered.length} enregistrements</p>
+        <h1>Détail Vie Démocratique</h1>
       </header>
 
-      <div className="filters-section">
-        <div className="search-box">
-          <input
-            type="text"
-            placeholder="Rechercher par titre, description ou id..."
-            value={searchTerm}
-            onChange={(e) => {
-              setSearchTerm(e.target.value);
-              setCurrentPage(1);
-            }}
-            className="search-input"
-          />
-        </div>
+      <div className="table-wrapper" style={{ padding: 20 }}>
+        {record ? (
+          <div style={{ display: "grid", gap: 12 }}>
+            <div><strong>Nom Spécifique :</strong> {record.nom_specifique || "N/A"}</div>
+            <div><strong>Nom Institutionnel :</strong> {record.nom_institutionnel || "N/A"}</div>
+            <div><strong>Type de Rencontre :</strong> {record.type_rencontre || "N/A"}</div>
+            <div><strong>Date :</strong> {record.date_rencontre ? new Date(record.date_rencontre).toLocaleDateString() : "N/A"}</div>
+            <div><strong>Endroit :</strong> {record.endroit || "N/A"}</div>
+            <div><strong>Nom du Lieu :</strong> {record.nom_lieu || "N/A"}</div>
+            <div><strong>Salle :</strong> {record.salle || "N/A"}</div>
+            <div><strong>Rue :</strong> {record.rue || "N/A"}</div>
+            <div><strong>Numéro Civique :</strong> {record.numero_civique || "N/A"}</div>
 
-        <div className="filters-grid">
-          <select
-            value={filters.type}
-            onChange={(e) => {
-              setFilters({ ...filters, type: e.target.value });
-              setCurrentPage(1);
-            }}
-            className="filter-select"
-          >
-            <option value="">Tous les types</option>
-            {uniqueTypes.map((t) => (
-              <option key={t} value={t}>{t}</option>
-            ))}
-          </select>
+            <details>
+              <summary>Données brutes</summary>
+              <pre style={{ maxHeight: 300, overflow: "auto" }}>{JSON.stringify(record, null, 2)}</pre>
+            </details>
 
-          <select
-            value={filters.year}
-            onChange={(e) => {
-              setFilters({ ...filters, year: e.target.value });
-              setCurrentPage(1);
-            }}
-            className="filter-select"
-          >
-            <option value="">Toutes les années</option>
-            {uniqueYears.map((y: number) => (
-              <option key={y} value={String(y)}>{y}</option>
-            ))}
-          </select>
-        </div>
+            <div style={{ marginTop: 12 }}>
+              <button className="btn-view" onClick={() => navigate("/vie-democratique")}>
+                Retour à la liste
+              </button>
+            </div>
+          </div>
+        ) : (
+          <p className="no-data">Aucune donnée trouvée pour l'ID {id}.</p>
+        )}
       </div>
-
-      <div className="table-wrapper">
-        <table className="data-table">
-          <thead>
-            <tr>
-              <th>Titre</th>
-              <th>Description</th>
-              <th>Date</th>
-              <th>ID</th>
-            </tr>
-          </thead>
-          <tbody>
-            {pageItems.map((item: any, idx: number) => (
-              <tr key={item.id || idx}>
-                <td>{item.titre || `Élément #${startIndex + idx + 1}`}</td>
-                <td className="truncate">{item.description ? (String(item.description).slice(0, 140)) : JSON.stringify(item)}</td>
-                <td>{item.date ? new Date(item.date).toLocaleDateString() : ""}</td>
-                <td className="centered">{item.id ?? "N/A"}</td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
-      </div>
-
-      {filtered.length === 0 && (
-        <p className="no-data">Aucun résultat trouvé</p>
-      )}
-
-      {totalPages > 1 && (
-        <div className="pagination">
-          <button onClick={() => setCurrentPage(Math.max(1, currentPage - 1))} disabled={currentPage === 1} className="btn-pagination">Précédent</button>
-          <span className="page-info">Page {currentPage} / {totalPages}</span>
-          <button onClick={() => setCurrentPage(Math.min(totalPages, currentPage + 1))} disabled={currentPage === totalPages} className="btn-pagination">Suivant</button>
-        </div>
-      )}
     </div>
   );
 };
