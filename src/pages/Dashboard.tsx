@@ -22,6 +22,9 @@ const Dashboard = () => {
         <h1>Tableau de bord</h1>
         <div className="user-info">
           <span>Bienvenue, {user?.username || "Utilisateur"} !</span>
+          <button onClick={() => navigate('/profile')} className="profile-button">
+            Mon profil
+          </button>
           <button onClick={handleLogout} className="logout-button">
             Déconnexion
           </button>
@@ -31,12 +34,6 @@ const Dashboard = () => {
       <div className="dashboard-content">
         <h2>Accès rapide</h2>
         <div className="dashboard-cards">
-          
-          <Link to="/profile" className="dashboard-card">
-            <div className="card-icon">👤</div>
-            <h3>Mon profil</h3>
-            <p>Afficher et modifier les informations du compte</p>
-          </Link>
           <Link to="/vie-democratique" className="dashboard-card">
             <div className="card-icon">🏛️</div>
             <h3>Vie Démocratique</h3>
@@ -68,34 +65,6 @@ const Dashboard = () => {
             <h3>Interventions Pompiers</h3>
             <p>Consultez toutes les interventions des pompiers</p>
           </Link>
-        </div>
-
-        
-
-        <div className="user-details">
-          <h3>Informations du compte</h3>
-          <div className="details-grid">
-            <div className="detail-item">
-              <strong>Nom d'utilisateur:</strong>
-              <span>{user?.username}</span>
-            </div>
-            <div className="detail-item">
-              <strong>Email:</strong>
-              <span>{user?.email}</span>
-            </div>
-            {user?.first_name && (
-              <div className="detail-item">
-                <strong>Prénom:</strong>
-                <span>{user.first_name}</span>
-              </div>
-            )}
-            {user?.last_name && (
-              <div className="detail-item">
-                <strong>Nom:</strong>
-                <span>{user.last_name}</span>
-              </div>
-            )}
-          </div>
         </div>
       </div>
     </div>

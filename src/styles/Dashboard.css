@@ -43,6 +43,22 @@
   background-color: rgba(255, 255, 255, 0.3);
 }
 
+/* Bouton profil avec le même style que déconnexion */
+.profile-button {
+  background-color: rgba(255, 255, 255, 0.2);
+  color: white;
+  border: 1px solid white;
+  padding: 0.5rem 1rem;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: 600;
+  transition: background-color 0.3s;
+}
+
+.profile-button:hover {
+  background-color: rgba(255, 255, 255, 0.3);
+}
+
 .dashboard-content {
   max-width: 1200px;
   margin: 0 auto;

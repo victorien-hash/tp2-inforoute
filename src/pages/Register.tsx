@@ -63,7 +63,7 @@ const Register = () => {
                 type="text"
                 value={firstName}
                 onChange={(e) => setFirstName(e.target.value)}
-                placeholder="John"
+                placeholder="votre prénom"
                 required
               />
             </div>
@@ -75,7 +75,7 @@ const Register = () => {
                 type="text"
                 value={lastName}
                 onChange={(e) => setLastName(e.target.value)}
-                placeholder="Doe"
+                placeholder="votre nom"
                 required
               />
             </div>
@@ -88,7 +88,7 @@ const Register = () => {
               type="text"
               value={username}
               onChange={(e) => setUsername(e.target.value)}
-              placeholder="johndoe"
+              placeholder="votre nom d'utilisateur"
               required
             />
           </div>
@@ -100,7 +100,7 @@ const Register = () => {
               type="email"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
-              placeholder="john.doe@example.com"
+              placeholder="votre email ex:john.doe@example.com"
               required
             />
           </div>
