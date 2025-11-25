@@ -16,6 +16,9 @@ const Dashboard = () => {
     navigate("/login");
   };
 
+  const now = new Date();
+  const sessionString = `Session : ${now.toLocaleDateString()} à ${now.toLocaleTimeString()}`;
+
   return (
     <div className="dashboard-container">
       <header className="dashboard-header">
@@ -29,6 +32,7 @@ const Dashboard = () => {
             Déconnexion
           </button>
         </div>
+        <div className="session-info" style={{ marginTop: 8, fontSize: '1em', color: '#666' }}>{sessionString}</div>
       </header>
 
       <div className="dashboard-content">
@@ -56,6 +60,12 @@ const Dashboard = () => {
             <div className="card-icon">🚒</div>
             <h3>Interventions Pompiers</h3>
             <p>Consultez toutes les interventions des pompiers</p>
+          </Link>
+
+          <Link to="/statistics" className="dashboard-card">
+            <div className="card-icon">📈</div>
+            <h3>Visualisation Statistique</h3>
+            <p>Voir les graphiques et exporter en PDF</p>
           </Link>
         </div>
       </div>

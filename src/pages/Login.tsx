@@ -2,7 +2,7 @@ import { useState } from "react";
 import { loginRequest } from "../api/auth.api";
 import { useDispatch } from "react-redux";
 import { loginSuccess } from "../store/authSlice";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import "../styles/Login.css";
 
 const Login = () => {
@@ -13,6 +13,7 @@ const Login = () => {
   
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const location = useLocation();
 
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -22,7 +23,8 @@ const Login = () => {
     try {
       const res = await loginRequest({ username, password });
       dispatch(loginSuccess({ user: res.data.user, token: res.data.token }));
-      navigate("/");
+      const from = (location.state as any)?.from?.pathname || "/";
+      navigate(from);
     } catch (err: any) {
       const errorMsg = err.response?.data?.message || "Identifiants incorrects";
       setError(errorMsg);

@@ -1,7 +1,7 @@
 import axios from "axios";
 
 // URL de l'API
-// const API_URL = "https://tp1-django.onrender.com";
+//const API_URL = "https://tp1-django.onrender.com";
 const API_URL = "http://127.0.0.1:8000"; // exemple, change selon ton API
 
 // Intercepteur pour ajouter le token aux requêtes

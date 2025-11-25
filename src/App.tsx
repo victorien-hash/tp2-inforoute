@@ -12,6 +12,7 @@ import InterventionPompiersList from "./pages/InterventionPompiersList";
 import RegisterGES from "./pages/registerGES";
 import RegisterGESList from "./pages/RegisterGESList";
 import Profile from "./pages/Profile";
+import Statistics from "./pages/Statistics";
 
 const App = () => {
   return (
@@ -107,6 +108,15 @@ const App = () => {
         element={
           <PrivateRoute>
             <VieDemocratique />
+          </PrivateRoute>
+        }
+      />
+
+      <Route
+        path="/statistics"
+        element={
+          <PrivateRoute>
+            <Statistics />
           </PrivateRoute>
         }
       />
