@@ -40,14 +40,6 @@ const Dashboard = () => {
             <p>Consultez les informations sur la vie démocratique</p>
           </Link>
 
-
-
-          <Link to="/vie-democratique" className="dashboard-card">
-            <div className="card-icon">🏛️</div>
-            <h3>Vie Démocratique</h3>
-            <p>Consultez les informations sur la vie démocratique</p>
-          </Link>
-
           <Link to="/permis" className="dashboard-card">
             <div className="card-icon">🐾</div>
             <h3>Permis Animaux</h3>
