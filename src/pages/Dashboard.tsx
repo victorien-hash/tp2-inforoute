@@ -31,6 +31,20 @@ const Dashboard = () => {
       <div className="dashboard-content">
         <h2>Accès rapide</h2>
         <div className="dashboard-cards">
+          
+          <Link to="/profile" className="dashboard-card">
+            <div className="card-icon">👤</div>
+            <h3>Mon profil</h3>
+            <p>Afficher et modifier les informations du compte</p>
+          </Link>
+          <Link to="/vie-democratique" className="dashboard-card">
+            <div className="card-icon">🏛️</div>
+            <h3>Vie Démocratique</h3>
+            <p>Consultez les informations sur la vie démocratique</p>
+          </Link>
+
+
+
           <Link to="/vie-democratique" className="dashboard-card">
             <div className="card-icon">🏛️</div>
             <h3>Vie Démocratique</h3>
@@ -55,6 +69,8 @@ const Dashboard = () => {
             <p>Consultez toutes les interventions des pompiers</p>
           </Link>
         </div>
+
+        
 
         <div className="user-details">
           <h3>Informations du compte</h3>

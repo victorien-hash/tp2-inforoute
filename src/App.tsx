@@ -11,6 +11,7 @@ import InterventionPompier from "./pages/InterventionPompier";
 import InterventionPompiersList from "./pages/InterventionPompiersList";
 import RegisterGES from "./pages/registerGES";
 import RegisterGESList from "./pages/RegisterGESList";
+import Profile from "./pages/Profile";
 
 const App = () => {
   return (
@@ -25,6 +26,15 @@ const App = () => {
         element={
           <PrivateRoute>
             <Dashboard />
+          </PrivateRoute>
+        }
+      />
+      
+      <Route
+        path="/profile"
+        element={
+          <PrivateRoute>
+            <Profile />
           </PrivateRoute>
         }
       />

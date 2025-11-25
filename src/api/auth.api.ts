@@ -11,7 +11,6 @@ axios.interceptors.request.use((config) => {
   return config;
 });
 
-
 export const loginRequest = async (data: { username: string; password: string }) => {
   return axios.post(`${API_URL}/auth/login/`, data);
 };
@@ -24,4 +23,19 @@ export const registerRequest = async (data: {
   last_name: string;
 }) => {
   return axios.post(`${API_URL}/auth/register/`, data);
+};
+
+export const updateUserProfile = async (
+  id: number,
+  data: {
+    username?: string;
+    password?: string;
+    email?: string;
+    first_name?: string;
+    last_name?: string;
+  }
+) => {
+  const payload = { ...data };
+  if (!payload.password) delete (payload as any).password; // mot de passe facultatif
+  return axios.put(`${API_URL}/auth/profile/${id}/`, payload);
 };
