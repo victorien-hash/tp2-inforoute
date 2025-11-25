@@ -37,10 +37,22 @@ const Dashboard = () => {
             <p>Consultez les informations sur la vie démocratique</p>
           </Link>
 
-          <Link to="/permis/1" className="dashboard-card">
+          <Link to="/permis" className="dashboard-card">
             <div className="card-icon">🐾</div>
             <h3>Permis Animaux</h3>
-            <p>Gérez les permis d'animaux</p>
+            <p>Consultez tous les permis d'animaux</p>
+          </Link>
+
+          <Link to="/registerGES" className="dashboard-card">
+            <div className="card-icon">📊</div>
+            <h3>Registre GES</h3>
+            <p>Consultez le registre des gaz à effet de serre</p>
+          </Link>
+
+          <Link to="/interventions-pompiers" className="dashboard-card">
+            <div className="card-icon">🚒</div>
+            <h3>Interventions Pompiers</h3>
+            <p>Consultez toutes les interventions des pompiers</p>
           </Link>
         </div>
 

@@ -1,5 +1,13 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import { getPermisAnimal } from "../api/permis.api";
+import { getPermisAnimal, getPermisAnimals } from "../api/permis.api";
+
+export const fetchPermisAnimals = createAsyncThunk(
+  "permis/fetchPermisAnimals",
+  async () => {
+    const res = await getPermisAnimals();
+    return res.data;
+  }
+);
 
 export const fetchPermisAnimal = createAsyncThunk(
   "permis/fetchPermisAnimal",
@@ -11,12 +19,14 @@ export const fetchPermisAnimal = createAsyncThunk(
 
 interface PermisState {
   data: any;
+  dataList: any[];
   loading: boolean;
   error: string | null;
 }
 
 const initialState: PermisState = {
   data: null,
+  dataList: [],
   loading: false,
   error: null,
 };
@@ -27,6 +37,18 @@ const permisSlice = createSlice({
   reducers: {},
   extraReducers: (builder) => {
     builder
+      .addCase(fetchPermisAnimals.pending, (state) => {
+        state.loading = true;
+        state.error = null;
+      })
+      .addCase(fetchPermisAnimals.fulfilled, (state, action) => {
+        state.loading = false;
+        state.dataList = Array.isArray(action.payload) ? action.payload : action.payload.results || [];
+      })
+      .addCase(fetchPermisAnimals.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.error.message || "Erreur";
+      })
       .addCase(fetchPermisAnimal.pending, (state) => {
         state.loading = true;
         state.error = null;

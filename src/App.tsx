@@ -3,8 +3,13 @@ import Login from "./pages/Login";
 import Register from "./pages/Register";
 import PrivateRoute from "./components/PrivateRoute";
 import PermisAnimal from "./pages/PermisAnimal";
+import PermisAnimalsList from "./pages/PermisAnimalsList";
 import VieDemocratique from "./pages/Democratique";
 import Dashboard from "./pages/Dashboard";
+import InterventionPompier from "./pages/InterventionPompier";
+import InterventionPompiersList from "./pages/InterventionPompiersList";
+import RegisterGES from "./pages/registerGES";
+import RegisterGESList from "./pages/RegisterGESList";
 
 const App = () => {
   return (
@@ -24,10 +29,55 @@ const App = () => {
       />
       
       <Route
+        path="/permis"
+        element={
+          <PrivateRoute>
+            <PermisAnimalsList />
+          </PrivateRoute>
+        }
+      />
+
+      <Route
         path="/permis/:id"
         element={
           <PrivateRoute>
             <PermisAnimal />
+          </PrivateRoute>
+        }
+      />
+
+      <Route
+        path="/interventions-pompiers"
+        element={
+          <PrivateRoute>
+            <InterventionPompiersList />
+          </PrivateRoute>
+        }
+      />
+
+      <Route
+        path="/interventions-pompiers/:id"
+        element={
+          <PrivateRoute>
+            <InterventionPompier />
+          </PrivateRoute>
+        }
+      />
+
+      <Route
+        path="/registerGES"
+        element={
+          <PrivateRoute>
+            <RegisterGESList />
+          </PrivateRoute>
+        }
+      />
+
+      <Route
+        path="/registerGES/:id"
+        element={
+          <PrivateRoute>
+            <RegisterGES />
           </PrivateRoute>
         }
       />
