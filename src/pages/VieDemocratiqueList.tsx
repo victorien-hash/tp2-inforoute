@@ -1,50 +1,37 @@
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 import { fetchVieDemocratique } from "../store/vieDemocratiqueSlice";
 import type { RootState, AppDispatch } from "../store/store";
-import "../styles/VieDemocratique.css";
 import "../styles/DataList.css";
 
-const VieDemocratique = () => {
-  const dispatch = useDispatch<AppDispatch>();
-  const { data, loading, error } = useSelector((state: RootState) => state.vieDemocratique);
+interface VieDemocratiqueItem {
+  id?: number;
+  titre?: string;
+  description?: string;
+  date?: string;
+  type?: string;
+  categorie?: string;
+  [key: string]: any;
+}
 
-  useEffect(() => {
-    dispatch(fetchVieDemocratique());
-  }, [dispatch]);
+const VieDemocratiqueList = () => {
+  const dispatch = useDispatch<AppDispatch>();
+  const navigate = useNavigate();
+  const { data, loading, error } = useSelector((state: RootState) => state.vieDemocratique);
 
   const [searchTerm, setSearchTerm] = useState("");
   const [filters, setFilters] = useState({ year: "", type: "" });
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 10;
 
-  // Affichage du chargement avec un spinner
-  if (loading) {
-    return (
-      <div className="page-container">
-        <div className="loading">
-          <div className="loading-spinner"></div>
-          <p>Chargement des données...</p>
-        </div>
-      </div>
-    );
-  }
+  useEffect(() => {
+    dispatch(fetchVieDemocratique());
+  }, [dispatch]);
 
-  // Affichage de l'erreur
-  if (error) {
-    return (
-      <div className="page-container">
-        <div className="error">
-          <p>Oups ! Une erreur est survenue : {error}</p>
-        </div>
-      </div>
-    );
-  }
+  const list = Array.isArray(data) ? data as VieDemocratiqueItem[] : [];
 
-  // prepare filtered + paginated data
-  const list = Array.isArray(data) ? data : [];
-
-  const filtered = list.filter((item: any) => {
+  const filtered = list.filter((item) => {
     const q = searchTerm.trim().toLowerCase();
     const matchesSearch =
       !q ||
@@ -62,11 +49,11 @@ const VieDemocratique = () => {
   const startIndex = (currentPage - 1) * itemsPerPage;
   const pageItems = filtered.slice(startIndex, startIndex + itemsPerPage);
 
-  const uniqueYears = Array.from(new Set(list
-    .map((it: any) => (it.date ? new Date(it.date).getFullYear() : null))
-    .filter((y): y is number => y !== null)
-  )).sort((a: number, b: number) => b - a);
+  const uniqueYears = Array.from(new Set(list.map((it: any) => (it.date ? new Date(it.date).getFullYear() : null)).filter((y): y is number => y !== null))).sort((a: number, b: number) => b - a);
   const uniqueTypes = Array.from(new Set(list.map((it: any) => it.type || it.categorie).filter((t): t is string => !!t)));
+
+  if (loading) return <p className="loading">Chargement...</p>;
+  if (error) return <p className="error">Erreur : {error}</p>;
 
   return (
     <div className="data-list-container">
@@ -81,10 +68,7 @@ const VieDemocratique = () => {
             type="text"
             placeholder="Rechercher par titre, description ou id..."
             value={searchTerm}
-            onChange={(e) => {
-              setSearchTerm(e.target.value);
-              setCurrentPage(1);
-            }}
+            onChange={(e) => { setSearchTerm(e.target.value); setCurrentPage(1); }}
             className="search-input"
           />
         </div>
@@ -92,10 +76,7 @@ const VieDemocratique = () => {
         <div className="filters-grid">
           <select
             value={filters.type}
-            onChange={(e) => {
-              setFilters({ ...filters, type: e.target.value });
-              setCurrentPage(1);
-            }}
+            onChange={(e) => { setFilters({ ...filters, type: e.target.value }); setCurrentPage(1); }}
             className="filter-select"
           >
             <option value="">Tous les types</option>
@@ -106,10 +87,7 @@ const VieDemocratique = () => {
 
           <select
             value={filters.year}
-            onChange={(e) => {
-              setFilters({ ...filters, year: e.target.value });
-              setCurrentPage(1);
-            }}
+            onChange={(e) => { setFilters({ ...filters, year: e.target.value }); setCurrentPage(1); }}
             className="filter-select"
           >
             <option value="">Toutes les années</option>
@@ -128,24 +106,30 @@ const VieDemocratique = () => {
               <th>Description</th>
               <th>Date</th>
               <th>ID</th>
+              <th>Actions</th>
             </tr>
           </thead>
           <tbody>
-            {pageItems.map((item: any, idx: number) => (
-              <tr key={item.id || idx}>
+            {pageItems.map((item, idx) => (
+              <tr key={item.id ?? idx}>
                 <td>{item.titre || `Élément #${startIndex + idx + 1}`}</td>
-                <td className="truncate">{item.description ? (String(item.description).slice(0, 140)) : JSON.stringify(item)}</td>
+                <td className="truncate">{item.description ? String(item.description).slice(0, 140) : JSON.stringify(item)}</td>
                 <td>{item.date ? new Date(item.date).toLocaleDateString() : ""}</td>
                 <td className="centered">{item.id ?? "N/A"}</td>
+                <td>
+                  <button className="btn-view" onClick={() => {
+                    const targetId = item.id ?? (item as any).pk;
+                    if (targetId) navigate(`/vie-democratique/${targetId}`, { state: { item } });
+                    else navigate(`/vie-democratique/${startIndex + idx}`, { state: { item, fallbackIndex: startIndex + idx } });
+                  }}>Voir</button>
+                </td>
               </tr>
             ))}
           </tbody>
         </table>
       </div>
 
-      {filtered.length === 0 && (
-        <p className="no-data">Aucun résultat trouvé</p>
-      )}
+      {filtered.length === 0 && <p className="no-data">Aucun résultat trouvé</p>}
 
       {totalPages > 1 && (
         <div className="pagination">
@@ -158,4 +142,4 @@ const VieDemocratique = () => {
   );
 };
 
-export default VieDemocratique;
+export default VieDemocratiqueList;

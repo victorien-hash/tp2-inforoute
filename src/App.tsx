@@ -4,7 +4,8 @@ import Register from "./pages/Register";
 import PrivateRoute from "./components/PrivateRoute";
 import PermisAnimal from "./pages/PermisAnimal";
 import PermisAnimalsList from "./pages/PermisAnimalsList";
-import VieDemocratique from "./pages/Democratique";
+import VieDemocratique from "./pages/VieDemocratique";
+import VieDemocratiqueList from "./pages/VieDemocratiqueList";
 import Dashboard from "./pages/Dashboard";
 import InterventionPompier from "./pages/InterventionPompier";
 import InterventionPompiersList from "./pages/InterventionPompiersList";
@@ -84,6 +85,15 @@ const App = () => {
 
       <Route
         path="/vie-democratique"
+        element={
+          <PrivateRoute>
+            <VieDemocratiqueList />
+          </PrivateRoute>
+        }
+      />
+
+      <Route
+        path="/vie-democratique/:id"
         element={
           <PrivateRoute>
             <VieDemocratique />
