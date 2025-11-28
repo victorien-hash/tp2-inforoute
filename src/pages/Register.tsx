@@ -34,7 +34,7 @@ const Register = () => {
       // Connexion automatique après inscription
       dispatch(loginSuccess({ user: res.data.user, token: res.data.token }));
       alert("Compte créé avec succès !");
-      navigate("/");
+      navigate("/login");
     } catch (err: any) {
       const errorMsg = err.response?.data?.message || "Erreur lors de l'inscription";
       setError(errorMsg);
