@@ -5,6 +5,7 @@ import { fetchRegistreGes } from "../store/registreGesSlice";
 import type { RootState, AppDispatch } from "../store/store";
 import "../styles/RegistreGES.css";
 import "../styles/DataList.css";
+import UserBar from "../components/UserBar";
 
 const RegisterGES = () => {
   const dispatch = useDispatch<AppDispatch>();
@@ -33,7 +34,10 @@ const RegisterGES = () => {
   return (
     <div className="registre-ges-container">
       <header className="registre-ges-header">
-        <h1>Registre GES #{id}</h1>
+        <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+          <h1>Registre GES #{id}</h1>
+          <UserBar />
+        </div>
       </header>
 
       <div className="registre-ges-content">

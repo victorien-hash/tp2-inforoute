@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { fetchInterventionsPompiersList } from "../store/interventionPompierSlice";
 import type { RootState, AppDispatch } from "../store/store";
 import "../styles/DataList.css";
+import UserBar from "../components/UserBar";
 
 interface InterventionItem {
   id: number;
@@ -65,7 +66,10 @@ const InterventionPompiersList = () => {
   return (
     <div className="data-list-container">
       <header className="list-header">
-        <h1>Interventions des Pompiers</h1>
+        <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+          <h1>Interventions des Pompiers</h1>
+          <UserBar />
+        </div>
         <p className="total-items">Total : {filteredData.length} enregistrements</p>
       </header>
 

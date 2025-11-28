@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { fetchVieDemocratique } from "../store/vieDemocratiqueSlice";
 import type { RootState, AppDispatch } from "../store/store";
 import "../styles/DataList.css";
+import UserBar from "../components/UserBar";
 
 interface VieDemocratiqueItem {
   id?: number;
@@ -64,7 +65,10 @@ const VieDemocratiqueList = () => {
   return (
     <div className="data-list-container">
       <header className="list-header">
-        <h1>Vie Démocratique</h1>
+        <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+          <h1>Vie Démocratique</h1>
+          <UserBar />
+        </div>
         <p className="total-items">Total : {filtered.length} enregistrements</p>
       </header>
 

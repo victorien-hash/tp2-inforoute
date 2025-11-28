@@ -5,6 +5,7 @@ import { fetchVieDemocratiqueDetail } from "../store/vieDemocratiqueSlice";
 import type { RootState, AppDispatch } from "../store/store";
 import "../styles/VieDemocratique.css";
 import "../styles/DataList.css";
+import UserBar from "../components/UserBar";
 
 const VieDemocratique = () => {
   const dispatch = useDispatch<AppDispatch>();
@@ -38,7 +39,10 @@ const VieDemocratique = () => {
   return (
     <div className="data-list-container">
       <header className="list-header">
-        <h1>Détail Vie Démocratique</h1>
+        <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+          <h1>Détail Vie Démocratique</h1>
+          <UserBar />
+        </div>
       </header>
 
       <div className="table-wrapper" style={{ padding: 20 }}>

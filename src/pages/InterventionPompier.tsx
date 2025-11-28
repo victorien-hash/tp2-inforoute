@@ -5,6 +5,7 @@ import { fetchInterventionsPompiers } from "../store/interventionPompierSlice.ts
 import type { RootState, AppDispatch } from "../store/store";
 import "../styles/InterventionPompier.css";
 import "../styles/DataList.css";
+import UserBar from "../components/UserBar";
 
 const InterventionPompier = () => {
   const dispatch = useDispatch<AppDispatch>();
@@ -27,7 +28,10 @@ const InterventionPompier = () => {
   return (
     <div className="intervention-container">
       <header className="intervention-header">
-        <h1>Détail Intervention des Pompiers</h1>
+        <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+          <h1>Détail Intervention des Pompiers</h1>
+          <UserBar />
+        </div>
       </header>
 
       <div className="intervention-content">

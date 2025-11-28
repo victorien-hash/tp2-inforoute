@@ -4,6 +4,7 @@ import { useParams, useNavigate } from "react-router-dom";
 import { fetchPermisAnimal } from "../store/permisSlice";
 import type { RootState, AppDispatch } from "../store/store";
 import "../styles/DataList.css";
+import UserBar from "../components/UserBar";
 
 const PermisAnimal = () => {
   const dispatch = useDispatch<AppDispatch>();
@@ -22,7 +23,10 @@ const PermisAnimal = () => {
   return (
     <div className="data-list-container">
       <header className="list-header">
-        <h1>Détail Permis Animal</h1>
+        <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+          <h1>Détail Permis Animal</h1>
+          <UserBar />
+        </div>
       </header>
 
       <div className="table-wrapper" style={{ padding: 20 }}>

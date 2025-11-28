@@ -23,6 +23,7 @@ import { fetchRegistreGesList } from "../store/registreGesSlice";
 import { fetchVieDemocratique } from "../store/vieDemocratiqueSlice";
 import type { RootState, AppDispatch } from "../store/store";
 import "../styles/DataList.css";
+import UserBar from "../components/UserBar";
 
 const COLORS = ["#0088FE", "#00C49F", "#FFBB28", "#FF8042", "#8884D8", "#82CA9D", "#FFC658"];
 
@@ -133,7 +134,10 @@ const Statistics = () => {
   return (
     <div className="data-list-container" style={{ padding: "20px" }}>
       <header className="list-header">
-        <h1>📊 Visualisation Statistique des Données</h1>
+        <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+          <h1>📊 Visualisation Statistique des Données</h1>
+          <UserBar />
+        </div>
         <p className="total-items">
           Total : {(permis?.length || 0) + (interventions?.length || 0) + (registreGes?.length || 0) + (vieDemocratique?.length || 0)} enregistrements
         </p>
