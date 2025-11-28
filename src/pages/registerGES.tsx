@@ -37,7 +37,7 @@ const RegisterGES = () => {
         <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
           <h1>Registre GES #{id}</h1>
           <UserBar />
-        </div>
+        </div> 
       </header>
 
       <div className="registre-ges-content">
