@@ -4,6 +4,8 @@ import authReducer from "./authSlice";
 import vieDemocratiqueReducer from "./vieDemocratiqueSlice";
 import registreGesReducer from "./registreGesSlice";
 import interventionPompierReducer from "./interventionPompierSlice";
+import bonTravailReducer from "./bonTravailSlice";
+import permisConstructionReducer from "./permisConstructionSlice";
 
 export const store = configureStore({
   reducer: {
@@ -12,6 +14,8 @@ export const store = configureStore({
     vieDemocratique: vieDemocratiqueReducer,
     registreGes: registreGesReducer,
     interventionPompier: interventionPompierReducer,
+    bonTravail: bonTravailReducer,
+    permisConstruction: permisConstructionReducer,
   },
 });
 

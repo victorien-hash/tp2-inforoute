@@ -55,6 +55,18 @@ const Dashboard = () => {
             <p>Consultez le registre des gaz à effet de serre</p>
           </Link>
 
+          <Link to="/bon-travail" className="dashboard-card">
+            <div className="card-icon">🚰</div>
+            <h3>Bon Travaux Aqueduc</h3>
+            <p>Consultez les interventions aqueduc</p>
+          </Link>
+
+          <Link to="/permis-construction" className="dashboard-card">
+            <div className="card-icon">🏗️</div>
+            <h3>Permis Construction</h3>
+            <p>Consultez les permis de construction</p>
+          </Link>
+
           <Link to="/interventions-pompiers" className="dashboard-card">
             <div className="card-icon">🚒</div>
             <h3>Interventions Pompiers</h3>

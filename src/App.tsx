@@ -13,6 +13,10 @@ import RegisterGES from "./pages/registerGES";
 import RegisterGESList from "./pages/RegisterGESList";
 import Profile from "./pages/Profile";
 import Statistics from "./pages/Statistics";
+import BonTravailList from "./pages/BonTravailList";
+import BonTravail from "./pages/BonTravail";
+import PermisConstructionList from "./pages/PermisConstructionList";
+import PermisConstruction from "./pages/PermisConstruction";
 
 const App = () => {
   return (
@@ -81,6 +85,42 @@ const App = () => {
         element={
           <PrivateRoute>
             <RegisterGESList />
+          </PrivateRoute>
+        }
+      />
+
+      <Route
+        path="/bon-travail"
+        element={
+          <PrivateRoute>
+            <BonTravailList />
+          </PrivateRoute>
+        }
+      />
+
+      <Route
+        path="/bon-travail/:id"
+        element={
+          <PrivateRoute>
+            <BonTravail />
+          </PrivateRoute>
+        }
+      />
+
+      <Route
+        path="/permis-construction"
+        element={
+          <PrivateRoute>
+            <PermisConstructionList />
+          </PrivateRoute>
+        }
+      />
+
+      <Route
+        path="/permis-construction/:id"
+        element={
+          <PrivateRoute>
+            <PermisConstruction />
           </PrivateRoute>
         }
       />
