@@ -11,12 +11,8 @@ const PrivateRoute = ({ children }: { children: React.ReactNode }) => {
   const location = useLocation();
 
   // If there is a token but no user in the store, clear token and force login.
-  useEffect(() => {
-    if (token && !user) {
-      localStorage.removeItem("token");
-      dispatch(logout());
-    }
-  }, [token, user, dispatch]);
+  // Do not clear token automatically on reload. The store now
+  // rehydrates `user` from localStorage so reloads keep the session.
 
   return token && user ? (
     <>{children}</>
