@@ -3,7 +3,6 @@ import { useDispatch, useSelector } from "react-redux";
 import { useParams, useNavigate } from "react-router-dom";
 import { fetchInterventionsPompiers } from "../store/interventionPompierSlice.ts";
 import type { RootState, AppDispatch } from "../store/store";
-import "../styles/InterventionPompier.css";
 import "../styles/DataList.css";
 import UserBar from "../components/UserBar";
 

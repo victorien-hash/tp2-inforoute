@@ -3,7 +3,6 @@ import { useDispatch, useSelector } from "react-redux";
 import { useParams, useNavigate, useLocation } from "react-router-dom";
 import { fetchRegistreGes } from "../store/registreGesSlice";
 import type { RootState, AppDispatch } from "../store/store";
-import "../styles/RegistreGES.css";
 import "../styles/DataList.css";
 import UserBar from "../components/UserBar";
 

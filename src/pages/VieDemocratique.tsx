@@ -3,7 +3,6 @@ import { useDispatch, useSelector } from "react-redux";
 import { useParams, useLocation, useNavigate } from "react-router-dom";
 import { fetchVieDemocratiqueDetail } from "../store/vieDemocratiqueSlice";
 import type { RootState, AppDispatch } from "../store/store";
-import "../styles/VieDemocratique.css";
 import "../styles/DataList.css";
 import UserBar from "../components/UserBar";
 

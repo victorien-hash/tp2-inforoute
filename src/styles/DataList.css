@@ -1,10 +1,15 @@
-.data-list-container {
+.data-list-container,
+.intervention-container,
+.registre-ges-container,
+.vie-democratique-container {
   min-height: 100vh;
   background-color: #f5f5f5;
   padding: 20px;
 }
 
-.list-header {
+.list-header,
+.intervention-header,
+.registre-ges-header {
   background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
   color: white;
   padding: 30px 20px;
@@ -25,7 +30,9 @@
   opacity: 0.9;
 }
 
-.filters-section {
+.filters-section,
+.intervention-content,
+.registre-ges-content {
   background: white;
   border-radius: 8px;
   padding: 20px;
@@ -74,7 +81,9 @@
   box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
 }
 
-.table-wrapper {
+.table-wrapper,
+.intervention-content,
+.registre-ges-content {
   background: white;
   border-radius: 8px;
   overflow: hidden;
@@ -129,6 +138,31 @@
   padding: 8px 12px;
   border-radius: 4px;
   display: inline-block;
+}
+
+/* Shared raw data / details styling for detail pages */
+.raw-data {
+  margin-top: 20px;
+  padding: 15px;
+  background-color: #f3f4f6;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.raw-data summary {
+  color: #667eea;
+  font-weight: 600;
+  user-select: none;
+}
+
+.raw-data pre {
+  background-color: #1f2937;
+  color: #667eea;
+  padding: 15px;
+  border-radius: 4px;
+  overflow-x: auto;
+  margin-top: 15px;
+  font-size: 0.85rem;
 }
 
 .btn-view {
