@@ -509,7 +509,7 @@ const Statistics = () => {
               </select>
               <select value={currentFilters.vieYear || ''} onChange={(e) => setCurrentFilters({ ...currentFilters, vieYear: e.target.value || undefined })} className="filter-select">
                 <option value="">Toutes les années</option>
-                {uniqueVieYears.map((y) => (<option key={y} value={y}>{y}</option>))}
+                {uniqueVieYears.filter(y => y !== null).map((y) => (<option key={y} value={y!}>{y}</option>))}
               </select>
             </>
           )}
