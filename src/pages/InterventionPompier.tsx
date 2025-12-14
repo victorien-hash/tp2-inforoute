@@ -25,51 +25,33 @@ const InterventionPompier = () => {
   if (error) return <p className="error">Erreur : {error}</p>;
 
   return (
-    <div className="intervention-container">
-      <header className="intervention-header">
+    <div className="data-list-container">
+      <header className="list-header">
         <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
-          <h1>Détail Intervention des Pompiers</h1>
+          <h1>Détail Intervention Pompier</h1>
           <UserBar />
         </div>
       </header>
 
-      <div className="intervention-content">
+      <div className="table-wrapper" style={{ padding: 20 }}>
         {data ? (
-          <div className="intervention-detail">
-            <div className="detail-item">
-              <strong>Date/Heure :</strong>
-              <span>{new Date(data.date_heure_alerte).toLocaleString('fr-FR')}</span>
-            </div>
-            <div className="detail-item">
-              <strong>Rue :</strong>
-              <span>{data.rue || "N/A"}</span>
-            </div>
-            <div className="detail-item">
-              <strong>Code Postal :</strong>
-              <span>{data.code_postal_partiel || "N/A"}</span>
-            </div>
-            <div className="detail-item">
-              <strong>Caserne :</strong>
-              <span>{data.caserne || "N/A"}</span>
-            </div>
-            <div className="detail-item">
-              <strong>Type :</strong>
-              <span>{data.desc_type || data.code_type}</span>
-            </div>
-            <div className="detail-item">
-              <strong>Sous-type :</strong>
-              <span>{data.desc_sous_type || data.code_sous_type}</span>
-            </div>
-            <details className="raw-data">
+          <div style={{ display: 'grid', gap: 12 }}>
+            <div><strong>Date/Heure:</strong> {new Date(data.date_heure_alerte).toLocaleString('fr-FR')}</div>
+            <div><strong>Rue:</strong> {data.rue || "N/A"}</div>
+            <div><strong>Code Postal:</strong> {data.code_postal_partiel || "N/A"}</div>
+            <div><strong>Caserne:</strong> {data.caserne || "N/A"}</div>
+            <div><strong>Type:</strong> {data.desc_type || data.code_type}</div>
+            <div><strong>Sous-type:</strong> {data.desc_sous_type || data.code_sous_type}</div>
+            <details>
               <summary>Données brutes</summary>
-              <pre>{JSON.stringify(data, null, 2)}</pre>
+              <pre style={{ maxHeight: 300, overflow: 'auto' }}>{JSON.stringify(data, null, 2)}</pre>
             </details>
             <div style={{ marginTop: 12 }}>
               <button className="btn-view" onClick={() => navigate('/interventions-pompiers')}>Retour à la liste</button>
             </div>
           </div>
         ) : (
-          <p className="no-data">Aucune intervention trouvée</p>
+          <p className="no-data">Aucune intervention trouvée pour l'ID {id}</p>
         )}
       </div>
     </div>
