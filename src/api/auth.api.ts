@@ -1,8 +1,8 @@
 import axios from "axios";
 
 // URL de l'API
-const API_URL = "https://36e8cf4d4fea.ngrok-free.app";
-// const API_URL = "http://127.0.0.1:8000"; // exemple, change selon ton API
+// const API_URL = "https://36e8cf4d4fea.ngrok-free.app";
+const API_URL = "http://127.0.0.1:8000"; // exemple, change selon ton API
 
 // Intercepteur pour ajouter le token aux requêtes
 axios.interceptors.request.use((config) => {
